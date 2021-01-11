@@ -1,11 +1,29 @@
 import axios from 'axios';
 export const fetchSmurf = () => (dispatch)=>{
     dispatch({type:"CALLING_SMURF"})
-    axios.get ("/smurfs")
+    axios.get ("https://localhost:3333/smurfs")
     .then(res=>{
-        console.log(res)
         dispatch({type:"CALLING_SMURF_SUCCESS", payload: res.data})
     })
+    
+    .catch(err=>{
+        dispatch({type:"FAILED_CALL", payload:"OH NO, something went wrong"})
+        console.log(err)
+    })
+}
+export const addSmurf = (smurfs) => dispatch => {
+    dispatch({type:"ADD_SMURF"})
+    axios
+        .post("https://localhost:3333/smurfs", smurfs)
+        .then((res)=> {
+            dispatch({type: "ADD_SMURF_SUCCESS", payload: res.data})
+        })
+        .catch((err)=>{
+            dispatch({
+                type:"FAILED_TO_ADD_SMURF",
+                payload:"OH NO, something went wrong!"
+            })
+        })
 }
 //Task List:
 //1. Add fetch smurfs action: 

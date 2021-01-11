@@ -1,14 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {connect} from "react-redux"
+import {addSmurf} from "../actions/index"
 
+
+const Form = ({addSmurf}) => {
+    const [formState, setFormState] = useState({
+        name:"",
+        age:"",
+        height:""
+    })
+}
+const handleChange = (e) =>{
+    setFormState({...formState, [e.taget.name]:e.target.value})
+}
+const handleSubmit = e => {
+    e.preventDefault(),
+    addSmurf(formState);
+    setFormState({
+        name:"",
+        age:"",
+        height:"",
+    })
+}
 class AddForm extends React.Component {
-
     render() {
         return(<section>
             <h2>Add Smurf</h2>
-            <form>
+            <form onSubmit  = {handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
+                    <input onChange={handleChange} name="name" id="name" value={formState.name} /><br/>
+
+                    <label htmlFor="age">Age:</label><br/>
+                    <input onChange={handleChange} name="age" id="age" value={formState.age} /><br/>
+
+                    <label htmlFor="height">Height:</label><br/>
+                    <input onChange={handleChange} name="height" id="height" value={formState.height} />
                 </div>
 
                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
