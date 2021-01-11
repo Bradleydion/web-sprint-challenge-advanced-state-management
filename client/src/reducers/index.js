@@ -1,11 +1,42 @@
 
 export const initialState = {
+    smurf:{
+        name:"",
+        position:"",
+        nickname:"",
+    },
+    loading: false,
+    error:""
 }
 
-const reducer = ()=>{
-}
+export default function reducer(state= initialState, action){
+    switch(action.type){
+        case "CALLING_SMURF":
+            return{
+                ...state,
+                loading:true,
+            }
+        case "CALLING_SMURF_SUCCESS":
+            return{
+                ...state,
+                loading:false,
+                error:"",
+                smurf:{
+                    ...state.smurf,
+                    name:action.payload.name,
+                    position:action.payload.position,
+                    nickname:action.payload.nickname,
+                }
+            }
+        case  "FAILED_CALL":
+            return{
+                ...state,
+                loading:false,
+                error:"OH NO SOMETHING WENT WRONG!!!"
+            }
+    }
 
-export default reducer;
+}
 
 //Task List:
 //1. Add in the initialState needed to hold: 

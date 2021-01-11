@@ -1,5 +1,12 @@
 import axios from 'axios';
-
+export const fetchSmurf = () => (dispatch)=>{
+    dispatch({type:"CALLING_SMURF"})
+    axios.get ("/smurfs")
+    .then(res=>{
+        console.log(res)
+        dispatch({type:"CALLING_SMURF_SUCCESS", payload: res.data})
+    })
+}
 //Task List:
 //1. Add fetch smurfs action: 
 //              - fetch and return initial list of smurfs
