@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const fetchSmurf = () => (dispatch)=>{
     dispatch({type:"CALLING_SMURF"})
-    axios.get ("https://localhost:3333/smurfs")
+    axios.get ("http://localhost:3333/smurfs")
     .then(res=>{
         dispatch({type:"CALLING_SMURF_SUCCESS", payload: res.data})
     })

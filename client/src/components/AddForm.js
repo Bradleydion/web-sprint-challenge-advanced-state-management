@@ -1,27 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from "react-redux"
 import {addSmurf,updateFormError} from "../actions/index"
 
 
-// const Form = ({addSmurf}) => {
-//     const [formState, setFormState] = useState({
-//         name:"",
-//         position:"",
-//         nickname:""
-//     })
-// }
-// const handleChange = (e) =>{
-//     setFormState({...formState, [e.taget.name]:e.target.value})
-// }
-// const handleSubmit = e => {
-//     e.preventDefault(),
-//     addSmurf(formState);
-//     setFormState({
-//         name:"",
-//         position:"",
-//         nickname:"",
-//     })
-// }
 class AddForm extends React.Component {
         constructor(props) {
             super(props);
@@ -41,7 +22,7 @@ class AddForm extends React.Component {
         }
         handleSubmit = (e) => {
             e.preventDefault();
-            const checkName = this.props.smurfs.filter(smurf => smurf.name === this.state.name);
+            const checkName = this.props.smurf.filter(smurf => smurf.name === this.state.name);
             if (checkName.length > 0){
                 this.setState({
                     ...this.state,
@@ -91,11 +72,15 @@ class AddForm extends React.Component {
                     <label htmlFor="name">Name:</label><br/>
                     <input onChange={this.handleChange} name="name" id="name" value={this.formState} /><br/>
 
-                    <label htmlFor="age">Age:</label><br/>
-                    <input onChange={this.handleChange} name="age" id="age" value={this.formState} /><br/>
+                    <label htmlFor="position">Position:</label><br/>
+                    <input onChange={this.handleChange} name="position" id="position" value={this.formState} /><br/>
 
-                    <label htmlFor="height">Height:</label><br/>
-                    <input onChange={this.handleChange} name="height" id="height" value={this.formState} />
+                    <label htmlFor="nickname">Nickname:</label><br/>
+                    <input onChange={this.handleChange} name="nickname" id="nickname" value={this.formState} />
+
+                    <label htmlFor="description">Description:</label><br/>
+                    <input onChange={this.handleChange} name="description" id="description" value={this.formState} />
+                    
                 </div>
 
                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
@@ -106,6 +91,7 @@ class AddForm extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
+        smurf:state.smurf,
         adding:state.adding,
         error:state.error
     }

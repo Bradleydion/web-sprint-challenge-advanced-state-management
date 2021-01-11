@@ -36,7 +36,7 @@ const reducer = (state= initialState, action)=>{
             return{
                 ...state,
                 adding:false,
-                smurfs:action.payload
+                smurf:action.payload
             }
         case "FAILED_TO_ADD_SMURF":
             return{

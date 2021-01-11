@@ -14,7 +14,6 @@ componentDidUpdate(){
 
     render() {
         return(<div>
-            {/* <div>{this.props.isLoading? <h1>Loading</h1>:</div> */}
             <div>{this.props.smurf.map(smurf=>(<Smurf key={smurf.id}smurf={smurf}/>))}</div>
             
         </div>)
