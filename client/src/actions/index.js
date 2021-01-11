@@ -25,6 +25,12 @@ export const addSmurf = (smurfs) => dispatch => {
             })
         })
 }
+export const updateFormError = (error)=>{
+    return{
+        type:"UPDATE_FORM_ERROR",
+        payload:error
+    }
+}
 //Task List:
 //1. Add fetch smurfs action: 
 //              - fetch and return initial list of smurfs

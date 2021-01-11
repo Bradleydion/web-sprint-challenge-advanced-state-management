@@ -1,41 +1,101 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux"
-import {addSmurf} from "../actions/index"
+import {addSmurf,updateFormError} from "../actions/index"
 
 
-const form = ({addSmurf}) => {
-    const [formState, setFormState] = useState({
-        name:"",
-        age:"",
-        height:""
-    })
-}
-const handleChange = (e) =>{
-    setFormState({...formState, [e.taget.name]:e.target.value})
-}
-const handleSubmit = e => {
-    e.preventDefault(),
-    addSmurf(formState);
-    setFormState({
-        name:"",
-        age:"",
-        height:"",
-    })
-}
+// const Form = ({addSmurf}) => {
+//     const [formState, setFormState] = useState({
+//         name:"",
+//         position:"",
+//         nickname:""
+//     })
+// }
+// const handleChange = (e) =>{
+//     setFormState({...formState, [e.taget.name]:e.target.value})
+// }
+// const handleSubmit = e => {
+//     e.preventDefault(),
+//     addSmurf(formState);
+//     setFormState({
+//         name:"",
+//         position:"",
+//         nickname:"",
+//     })
+// }
 class AddForm extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                name: '',
+                position: '',
+                nickname: '',
+                description: '',
+           }
+        }
+        handleChange = (e) => {
+            const name = e.target.name;
+            const value = e.target.value;
+            this.setState({
+                ...this.state,
+                [name]: value})
+        }
+        handleSubmit = (e) => {
+            e.preventDefault();
+            const checkName = this.props.smurfs.filter(smurf => smurf.name === this.state.name);
+            if (checkName.length > 0){
+                this.setState({
+                    ...this.state,
+                })
+                this.props.updateFormError( 'this name is already taken');
+                return
+            }
+            console.log('submitting new smurf', this.state);
+            if (this.state.name === '' ){
+                this.setState({
+                    ...this.state,
+                })
+                this.props.updateFormError( 'please select a name');
+            }else if(this.state.position === '' ){
+                this.setState({
+                    ...this.state,
+                });
+                this.props.updateFormError( 'please include a position ');
+            }else if (this.state.nickname === ''){
+                this.setState({
+                    ...this.state,
+                })
+                this.props.updateFormError( 'please add a nickname');
+            }else {
+                const newSmurf = {
+                    id: Date.now(),
+                    name: this.state.name,
+                    position: this.state.position,
+                    nickname: this.state.nickname,
+                    description: this.state.description
+                }
+                this.props.addSmurf(newSmurf);
+                this.setState({
+                    name: '',
+                    position: '',
+                    nickname: '',
+                    description: '',
+                    error: ''
+                })
+            }
+        }
     render() {
         return(<section>
             <h2>Add Smurf</h2>
-            <form onSubmit  = {handleSubmit}>
+            <form onSubmit  = {this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
-                    <input onChange={handleChange} name="name" id="name" value={formState.name} /><br/>
+                    <input onChange={this.handleChange} name="name" id="name" value={this.formState} /><br/>
 
                     <label htmlFor="age">Age:</label><br/>
-                    <input onChange={handleChange} name="age" id="age" value={formState.age} /><br/>
+                    <input onChange={this.handleChange} name="age" id="age" value={this.formState} /><br/>
 
                     <label htmlFor="height">Height:</label><br/>
-                    <input onChange={handleChange} name="height" id="height" value={formState.height} />
+                    <input onChange={this.handleChange} name="height" id="height" value={this.formState} />
                 </div>
 
                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
@@ -50,7 +110,7 @@ const mapStateToProps = (state) => {
         error:state.error
     }
 }
-const mapDispatchToProps = {addSmurf};
+const mapDispatchToProps = {addSmurf, updateFormError};
 
 export default connect (mapStateToProps,mapDispatchToProps) (AddForm);
 

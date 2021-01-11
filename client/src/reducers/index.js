@@ -43,6 +43,11 @@ const reducer = (state= initialState, action)=>{
                 ...state,
                 error:action.payload
             }
+        case "UPDATE_FORM_ERROR":
+            return{
+                ...state,
+                error:action.payload
+            }
         default:
             return state
     }
