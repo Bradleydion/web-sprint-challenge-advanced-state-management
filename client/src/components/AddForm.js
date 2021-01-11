@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import {addSmurf} from "../actions/index"
 
 
-const Form = ({addSmurf}) => {
+const form = ({addSmurf}) => {
     const [formState, setFormState] = useState({
         name:"",
         age:"",
@@ -44,8 +44,15 @@ class AddForm extends React.Component {
         </section>);
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        adding:state.adding,
+        error:state.error
+    }
+}
+const mapDispatchToProps = {addSmurf};
 
-export default AddForm;
+export default connect (mapStateToProps,mapDispatchToProps) (AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.
