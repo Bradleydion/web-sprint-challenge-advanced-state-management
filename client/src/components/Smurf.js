@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Smurf extends React.Component {
     render() {
         const { smurf } = this.props;
