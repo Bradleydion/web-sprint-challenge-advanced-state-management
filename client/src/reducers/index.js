@@ -1,11 +1,58 @@
 
 export const initialState = {
+    smurf:[],
+    loading: false,
+    adding:false,
+    error:""
 }
 
-const reducer = ()=>{
+const reducer = (state= initialState, action)=>{
+    switch(action.type){
+        case "CALLING_SMURF":
+            return{
+                ...state,
+                loading:true,
+            }
+        case "CALLING_SMURF_SUCCESS":
+            return{
+                ...state,
+                loading:false,
+                error:"",
+                smurf:action.payload,
+                
+            }
+        case  "FAILED_CALL":
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+            }
+        case "ADD_SMURF":
+            return{
+                ...state,
+                adding:true
+            }
+        case "ADD_SMURF_SUCCESS":
+            return{
+                ...state,
+                adding:false,
+                smurf:action.payload
+            }
+        case "FAILED_TO_ADD_SMURF":
+            return{
+                ...state,
+                error:action.payload
+            }
+        case "UPDATE_FORM_ERROR":
+            return{
+                ...state,
+                error:action.payload
+            }
+        default:
+            return state
+    }
 }
-
-export default reducer;
+export default reducer
 
 //Task List:
 //1. Add in the initialState needed to hold: 
