@@ -11,10 +11,10 @@ export const fetchSmurf = () => (dispatch)=>{
         console.log(err)
     })
 }
-export const addSmurf = (smurfs) => dispatch => {
+export const addSmurf = (smurf) => dispatch => {
     dispatch({type:"ADD_SMURF"})
     axios
-        .post("https://localhost:3333/smurfs", smurfs)
+        .post("http://localhost:3333/smurfs", smurf)
         .then((res)=> {
             dispatch({type: "ADD_SMURF_SUCCESS", payload: res.data})
         })
